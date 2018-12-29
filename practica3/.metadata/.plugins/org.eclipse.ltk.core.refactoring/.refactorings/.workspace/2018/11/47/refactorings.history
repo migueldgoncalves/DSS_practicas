@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 3 resources" deleteContents="false" description="Delete 3 resources" element1="/ODE_Prueba/bpelContent/LoanAgent.bpel" element2="/ODE_Prueba/bpelContent/LoanAgent.bpelex" element3="/ODE_Prueba/bpelContent/LoanAgentArtifacts.wsdl" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="3" stamp="1543183279317"/>
+</session>

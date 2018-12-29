@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.bpel.ui.dialogs.PartnerLinkTypeSelectorDialog">
+		<item value="false" key="ShowPortTypes"/>
+		<item value="488" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="1031" key="ViewFrom"/>
+		<item value="false" key="ShowDuplicates"/>
+		<item value="728" key="DIALOG_HEIGHT"/>
+		<item value="447" key="DIALOG_X_ORIGIN"/>
+		<item value="8" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.bpel.ui.wizards.NewBpelFileWizard">
+		<item value="Vendedor" key="process-name"/>
+	</section>
+	<section name="org.eclipse.bpel.ui.dialogs.TypeSelectorDialog">
+		<item value="true" key="ShowMessages"/>
+		<item value="488" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="1031" key="ViewFrom"/>
+		<item value="255" key="FilterTypes"/>
+		<item value="false" key="ShowDuplicates"/>
+		<item value="728" key="DIALOG_HEIGHT"/>
+		<item value="447" key="DIALOG_X_ORIGIN"/>
+		<item value="8" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:holaMundo="http://holaMundo">
+  <process name="holaMundo:HolaMundo">
+    <active>true</active>
+    <retired>false</retired>
+  </process>
+</deploy>
