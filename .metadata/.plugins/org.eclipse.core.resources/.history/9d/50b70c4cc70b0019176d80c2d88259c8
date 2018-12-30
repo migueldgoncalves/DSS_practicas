@@ -1,0 +1,5 @@
+package mio.jersey.primero.modelo;
+
+public class Todo {
+
+}

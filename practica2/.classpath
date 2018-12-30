@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="F:/A/600 Universidade/063 DSS/DSS_practicas/practica2/lib/derby.jar"/>
+	<classpathentry kind="lib" path="F:/A/600 Universidade/063 DSS/DSS_practicas/practica2/lib/eclipselink.jar"/>
+	<classpathentry kind="lib" path="F:/A/600 Universidade/063 DSS/DSS_practicas/practica2/lib/javax.persistence_2.2.1.v201807122140.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

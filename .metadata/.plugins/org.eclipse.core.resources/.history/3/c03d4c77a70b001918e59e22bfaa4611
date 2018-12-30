@@ -1,0 +1,5 @@
+package mio.xml.jaxb.test;
+
+public class LibroPrincipal {
+
+}

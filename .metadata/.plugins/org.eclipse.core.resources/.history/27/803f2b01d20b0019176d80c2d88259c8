@@ -1,0 +1,5 @@
+package mio.jersey.primero.recurso;
+
+public class TodosRecurso {
+
+}
