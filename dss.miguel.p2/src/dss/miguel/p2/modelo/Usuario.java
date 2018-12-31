@@ -43,6 +43,10 @@ public class Usuario {
 		this.email = email;
 	}
 	
+	public int getId() {
+		return this.id;
+	}
+	
 	@Override
 	public String toString() {
 		return "El usuario con id " + id + " se llama " + name + " y su correo electronico es " + email;

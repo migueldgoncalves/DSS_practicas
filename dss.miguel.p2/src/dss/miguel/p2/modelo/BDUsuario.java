@@ -12,13 +12,13 @@ public enum BDUsuario {
 	INSTANCE; //Buena forma de implementar un singleton
 	
 	private static final String PERSISTENCE_UNIT_NAME = "practica2";
-	//private static EntityManagerFactory factoria;
+	//private static EntityManagerFactory factoria; //Necesario para ejecutar el main
 	private final EntityManagerFactory factoria = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	private final EntityManager em = factoria.createEntityManager();
+	private EntityManager em = factoria.createEntityManager();
 	
 	private BDUsuario() {
-		Usuario u1 = new Usuario("Fernando", "u1@email.com");
-		Usuario u2 = new Usuario("Hernando", "u2@email.com");
+		Usuario u1 = new Usuario("Fernando", "Fernando@email.com");
+		Usuario u2 = new Usuario("Hernando", "Hernando@email.com");
 		
 		EntityTransaction t = em.getTransaction();
 		t.begin();
@@ -28,17 +28,45 @@ public enum BDUsuario {
 		em.close();
 	}
 	
-	public String getUsuarios(){
+	public List<Usuario> getAllUsuarios(){
+		em = factoria.createEntityManager();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
 		Query q = em.createQuery("SELECT u FROM Usuario u");
 		@SuppressWarnings("unchecked")
 		List<Usuario> results = q.getResultList();
 		for (Usuario u : results)
 			System.out.println(u.toString());
 		System.out.println("La base de datos tiene " + results.size() + " usuarios");
-		return results.toString();
+		em.close();
+		return results;
 	}
 	
-	public void postUsuario(String name, String email) {
+	public Usuario getUsuarioById(String id){
+		em = factoria.createEntityManager();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+		Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.id=" +
+				Integer.parseInt(id));
+		@SuppressWarnings("unchecked")
+		List<Usuario> result = q.getResultList();
+		em.close();
+		return result.get(0);
+	}
+	
+	public void updateUsuario(String id, String name, String email) {
+		em = factoria.createEntityManager();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+		Usuario usuario = em.find(Usuario.class, Integer.parseInt(id));
+		usuario.setName(name);
+		usuario.setEmail(email);
+		t.commit();
+		em.close();
+	}
+	
+	public void createUsuario(String name, String email) {
+		em = factoria.createEntityManager();
 		Usuario u = new Usuario(name, email);
 		EntityTransaction t = em.getTransaction();
 		t.begin();
@@ -48,9 +76,10 @@ public enum BDUsuario {
 	}
 	
 	public void deleteUsuario(String id) {
+		em = factoria.createEntityManager();
 		EntityTransaction t = em.getTransaction();
 		t.begin();
-		Usuario usuario = em.find(Usuario.class, id);
+		Usuario usuario = em.find(Usuario.class, Integer.parseInt(id));
 		em.remove(usuario);
 		t.commit();
 		em.close();
