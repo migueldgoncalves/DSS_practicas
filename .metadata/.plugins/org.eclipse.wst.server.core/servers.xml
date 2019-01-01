@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<servers/>
+<servers>
+  <server hostname="localhost" id="Ode v1.x Server at localhost" name="Ode v1.x Server at localhost" runtime-id="Apache Ode 1.x Runtime" server-type="org.eclipse.jst.server.generic.apache.ode.1x" server-type-id="org.eclipse.jst.server.generic.apache.ode.1x" start-timeout="480" stop-timeout="60" timestamp="0">
+    <map key="generic_server_instance_properties"/>
+  </server>
+</servers>
