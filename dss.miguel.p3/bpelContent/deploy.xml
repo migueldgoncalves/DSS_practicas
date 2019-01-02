@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:aerolineaIberia="http://aerolineaIberia" xmlns:aerolineaVueling="http://aerolineaVueling" xmlns:statusEmpleados="http://statusEmpleados" xmlns:viaje="http://viaje">
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:aerolineaIberia="http://aerolineaIberia" xmlns:aerolineaVueling="http://aerolineaVueling" xmlns:prueba="http://prueba" xmlns:statusEmpleados="http://statusEmpleados" xmlns:viaje="http://viaje">
   <process name="aerolineaIberia:AerolineaIberia">
     <active>true</active>
     <retired>false</retired>
     <process-events generate="all"/>
-    <provide partnerLink="client">
-      <service/>
+    <provide partnerLink="cliente">
+      <service name="aerolineaIberia:AerolineaIberiaService" port="AerolineaIberiaPort"/>
     </provide>
   </process>
   <process name="aerolineaVueling:AerolineaVueling">
     <active>true</active>
     <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="cliente">
+      <service name="aerolineaVueling:AerolineaVuelingService" port="AerolineaVuelingPort"/>
+    </provide>
   </process>
   <process name="statusEmpleados:StatusEmpleados">
     <active>true</active>
     <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="cliente">
+      <service name="statusEmpleados:StatusEmpleadosService" port="StatusEmpleadosPort"/>
+    </provide>
   </process>
   <process name="viaje:Viaje">
     <active>true</active>
     <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="cliente">
+      <service name="viaje:ViajeService" port="ViajePort"/>
+    </provide>
+    <invoke partnerLink="aerolineaVueling">
+      <service name="aerolineaVueling:AerolineaVuelingService" port="AerolineaVuelingPort"/>
+    </invoke>
+    <invoke partnerLink="aerolineaIberia">
+      <service name="aerolineaIberia:AerolineaIberiaService" port="AerolineaIberiaPort"/>
+    </invoke>
+    <invoke partnerLink="statusEmpleados">
+      <service name="statusEmpleados:StatusEmpleadosService" port="StatusEmpleadosPort"/>
+    </invoke>
   </process>
 </deploy>

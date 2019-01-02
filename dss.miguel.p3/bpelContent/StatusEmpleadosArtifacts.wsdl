@@ -22,9 +22,6 @@
                 <complexType>
                     <sequence>
                     	<element name="nombre" type="string" />
-                    	<element name="destino" type="string"></element>
-                    	<element name="fechaSalida" type="date"></element>
-                    	<element name="fechaLlegada" type="date"></element>
                     </sequence>
                 </complexType>
             </element>

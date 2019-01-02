@@ -40,15 +40,27 @@
     <!-- services integrated within this business process                  -->
     <!-- ================================================================= -->         
     <bpel:variables>
-        <bpel:variable name="datosViaje"></bpel:variable>
-        <bpel:variable name="mejorOferta"></bpel:variable>
-        <bpel:variable name="statusEmpleadosRequest" messageType="ns3:StatusEmpleadosRequestMessage"></bpel:variable>
-        <bpel:variable name="statusEmpleadosReply"></bpel:variable>
-        <bpel:variable name="aerolineaIberiaRequest"></bpel:variable>
-        <bpel:variable name="aerolineaIberiaReply"></bpel:variable>
-        <bpel:variable name="aerolineaVuelingRequest"></bpel:variable>
-        <bpel:variable name="aerolineaVuelingReply"></bpel:variable>
-        <bpel:variable name="input" messageType="tns:ViajeRequestMessage"></bpel:variable>
+        
+        
+        <bpel:variable name="statusEmpleadosRequest" messageType="ns3:StatusEmpleadosRequestMessage">
+        </bpel:variable>
+        
+        <bpel:variable name="aerolineaIberiaRequest" messageType="ns2:AerolineaIberiaRequestMessage">
+        </bpel:variable>
+        
+        <bpel:variable name="aerolineaVuelingRequest" messageType="ns1:AerolineaVuelingRequestMessage">
+        </bpel:variable>
+        
+        <bpel:variable messageType="tns:ViajeRequestMessage" name="datosViaje">
+        </bpel:variable>
+        <bpel:variable name="statusEmpleadosResponse" messageType="ns3:StatusEmpleadosResponseMessage">
+        </bpel:variable>
+        <bpel:variable name="aerolineaIberiaResponse" messageType="ns2:AerolineaIberiaResponseMessage">
+        </bpel:variable>
+        <bpel:variable name="aerolineaVuelingResponse" messageType="ns1:AerolineaVuelingResponseMessage">
+        </bpel:variable>
+        <bpel:variable name="mejorOferta" messageType="tns:ViajeResponseMessage">
+        </bpel:variable>
     </bpel:variables>
     <bpel:sequence name="main">
         
@@ -56,19 +68,93 @@
              Note: This maps to operation defined in Viaje.wsdl 
              -->
         
-        <bpel:receive name="receiveInput" createInstance="yes" partnerLink="cliente" operation="process" portType="tns:Viaje" variable="input"/>
+        
+        <bpel:receive name="receiveInput" createInstance="yes" partnerLink="cliente" operation="process" portType="tns:Viaje" variable="datosViaje"/>
         
         <!-- Generate reply to synchronous request -->
-        <bpel:assign validate="no" name="AssignNombreEmpleado">
+        <bpel:assign validate="no" name="InicializarPayloads">
             <bpel:copy>
-                <bpel:from><bpel:literal><tns:StatusEmpleadosRequest xmlns:tns="http://statusEmpleados" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <tns:nombre>tns:nombre</tns:nombre>
-</tns:StatusEmpleadosRequest>
-</bpel:literal></bpel:from>
-                <bpel:to variable="statusEmpleadosRequest" part="payload"></bpel:to>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:AerolineaIberiaRequest xmlns:tns="http://aerolineaIberia" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:clase>tns:clase</tns:clase>
+  <tns:destino>tns:destino</tns:destino>
+  <tns:fechaPartida>2001-01-01</tns:fechaPartida>
+  <tns:fechaLlegada>2001-01-01</tns:fechaLlegada>
+</tns:AerolineaIberiaRequest>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to part="payload" variable="aerolineaIberiaRequest"></bpel:to>
             </bpel:copy>
             <bpel:copy>
-                <bpel:from part="payload" variable="input">
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:AerolineaIberiaResponse xmlns:tns="http://aerolineaIberia" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:precio>0.0</tns:precio>
+</tns:AerolineaIberiaResponse>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to part="payload" variable="aerolineaIberiaResponse"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:AerolineaVuelingRequest xmlns:tns="http://aerolineaVueling" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:clase>tns:clase</tns:clase>
+  <tns:destino>tns:destino</tns:destino>
+  <tns:fechaPartida>2001-01-01</tns:fechaPartida>
+  <tns:fechaLlegada>2001-01-01</tns:fechaLlegada>
+</tns:AerolineaVuelingRequest>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to part="payload" variable="aerolineaVuelingRequest"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:AerolineaVuelingResponse xmlns:tns="http://aerolineaVueling" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:precio>0.0</tns:precio>
+</tns:AerolineaVuelingResponse>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to part="payload" variable="aerolineaVuelingResponse"></bpel:to>
+            </bpel:copy>
+            
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:StatusEmpleadosRequest xmlns:tns="http://statusEmpleados" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:nombre>tns:nombre</tns:nombre>
+</tns:StatusEmpleadosRequest>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to part="payload" variable="statusEmpleadosRequest"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:StatusEmpleadosResponse xmlns:tns="http://statusEmpleados" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:clase>tns:clase</tns:clase>
+</tns:StatusEmpleadosResponse>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to part="payload" variable="statusEmpleadosResponse"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:ViajeResponse xmlns:tns="http://viaje" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:mejorOferta>tns:mejorOferta</tns:mejorOferta>
+  <tns:precioIberia>0.0</tns:precioIberia>
+  <tns:precioVueling>0.0</tns:precioVueling>
+</tns:ViajeResponse>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to part="payload" variable="mejorOferta"></bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:assign validate="no" name="AssignNombreEmpleado">
+            
+            
+            
+            
+            
+            
+            <bpel:copy>
+                <bpel:from part="payload" variable="datosViaje">
                     <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:nombre]]></bpel:query>
                 </bpel:from>
                 <bpel:to part="payload" variable="statusEmpleadosRequest">
@@ -76,56 +162,153 @@
                 </bpel:to>
             </bpel:copy>
             
-            <bpel:copy>
-                <bpel:from part="payload" variable="input">
-                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:destino]]></bpel:query>
-                </bpel:from>
-                <bpel:to part="payload" variable="statusEmpleadosRequest">
-                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns3:destino]]></bpel:query>
-                </bpel:to>
-            </bpel:copy>
-            <bpel:copy>
-                <bpel:from part="payload" variable="input">
-                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:fechaSalida]]></bpel:query>
-                </bpel:from>
-                <bpel:to part="payload" variable="statusEmpleadosRequest">
-                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns3:fechaSalida]]></bpel:query>
-                </bpel:to>
-            </bpel:copy>
-            <bpel:copy>
-                <bpel:from part="payload" variable="input">
-                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:fechaLlegada]]></bpel:query>
-                </bpel:from>
-                <bpel:to part="payload" variable="statusEmpleadosRequest">
-                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns3:fechaLlegada]]></bpel:query>
-                </bpel:to>
-            </bpel:copy>
+            
         </bpel:assign>
-        <bpel:invoke name="InvokeStatusEmpleados"></bpel:invoke>
+        <bpel:invoke name="InvokeStatusEmpleados" partnerLink="statusEmpleados" operation="process" portType="ns3:StatusEmpleados" inputVariable="statusEmpleadosRequest" outputVariable="statusEmpleadosResponse"></bpel:invoke>
         
         
         
         
-        <bpel:flow name="Flow"><bpel:sequence name="OfertaIberia">
-                
-                <bpel:assign validate="no" name="AssignIberiaRequest"></bpel:assign>
-                <bpel:invoke name="InvokeServicioIberia"></bpel:invoke>
-            </bpel:sequence><bpel:sequence name="OfertaVueling">
-                <bpel:assign validate="no" name="AssignVuelingRequest"></bpel:assign>
-                <bpel:invoke name="InvokeServicioVueling"></bpel:invoke>
-            </bpel:sequence></bpel:flow>
         
         
         
+        
+        
+        
+        <bpel:flow name="Flow"><bpel:sequence name="OfertaIberia"><bpel:assign validate="no" name="AssignIberiaRequest">
+                    
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="statusEmpleadosResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns3:clase]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="aerolineaIberiaRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns2:clase]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="datosViaje">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:destino]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="aerolineaIberiaRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns2:destino]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="datosViaje">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:fechaPartida]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="aerolineaIberiaRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns2:fechaPartida]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="datosViaje">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:fechaLlegada]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="aerolineaIberiaRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns2:fechaLlegada]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:invoke name="InvokeServicioIberia" partnerLink="aerolineaIberia" operation="process" portType="ns2:AerolineaIberia" inputVariable="aerolineaIberiaRequest" outputVariable="aerolineaIberiaResponse"></bpel:invoke>
+            
+        </bpel:sequence><bpel:sequence name="OfertaVueling"><bpel:assign validate="no" name="AssignVuelingRequest">
+                    
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="statusEmpleadosResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns3:clase]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="aerolineaVuelingRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns1:clase]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="datosViaje">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:destino]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="aerolineaVuelingRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns1:destino]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="datosViaje">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:fechaPartida]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="aerolineaVuelingRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns1:fechaPartida]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="datosViaje">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:fechaLlegada]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="aerolineaVuelingRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns1:fechaLlegada]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:invoke name="InvokeServicioVueling" partnerLink="aerolineaVueling" operation="process" portType="ns1:AerolineaVueling" inputVariable="aerolineaVuelingRequest" outputVariable="aerolineaVuelingResponse"></bpel:invoke>
+            
+        </bpel:sequence></bpel:flow>
         <bpel:if name="SeleccionaMejorOferta">
-            <bpel:assign validate="no" name="MejorIberia"></bpel:assign>
+            <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[$aerolineaIberiaResponse.payload/ns2:precio<$aerolineaVuelingResponse.payload/ns1:precio]]></bpel:condition>
+            <bpel:assign validate="no" name="MejorIberia">
+                
+                <bpel:copy>
+                    <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <![CDATA['Iberia']]>
+                    </bpel:from>
+                    <bpel:to part="payload" variable="mejorOferta">
+                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:mejorOferta]]></bpel:query>
+                    </bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from part="payload" variable="aerolineaIberiaResponse">
+                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns2:precio]]></bpel:query>
+                    </bpel:from>
+                    <bpel:to part="payload" variable="mejorOferta">
+                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:precioIberia]]></bpel:query>
+                    </bpel:to>
+                </bpel:copy>
+            </bpel:assign>
             <bpel:else>
-                <bpel:assign validate="no" name="MejorVueling"></bpel:assign>
+                <bpel:assign validate="no" name="MejorVueling">
+                    <bpel:copy>
+                        <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <![CDATA['Vueling']]>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="mejorOferta">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:mejorOferta]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="payload" variable="aerolineaVuelingResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns1:precio]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="payload" variable="mejorOferta">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:precioVueling]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
             </bpel:else>
         </bpel:if>
         <bpel:reply name="replyOutput" 
-               portType="tns:Viaje"
-               operation="process"/>
+               partnerLink="cliente" operation="process" portType="tns:Viaje" variable="mejorOferta"/>
     </bpel:sequence>
 </bpel:process>
 

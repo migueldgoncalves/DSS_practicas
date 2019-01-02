@@ -45,10 +45,11 @@
         
         
         
-        <bpel:variable name="aVendedorRequest" messageType="ns1:VendedorRequestMessage"></bpel:variable>
-        <bpel:variable name="aVendedorReply" messageType="ns1:VendedorResponseMessage"></bpel:variable>
-        <bpel:variable name="sellerResponse" messageType="ns1:VendedorResponseMessage"></bpel:variable>
+        
+        
+        
         <bpel:variable name="sellerRequest" messageType="ns1:VendedorRequestMessage"></bpel:variable>
+        <bpel:variable name="sellerResponse" messageType="ns1:VendedorResponseMessage"></bpel:variable>
     </bpel:variables>
 
     <!-- ================================================================= -->         
@@ -67,29 +68,19 @@
                  createInstance="yes"/>
         
         <!-- Generate reply to synchronous request -->
+        
+        
+        
+        
+        
         <bpel:assign validate="no" name="AssignInput">
-            
-            
-            
-            
             <bpel:copy>
                 <bpel:from><bpel:literal><tns:VendedorRequest xmlns:tns="http://vendedor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <tns:articulo>tns:articulo</tns:articulo>
   <tns:precio>tns:precio</tns:precio>
 </tns:VendedorRequest>
 </bpel:literal></bpel:from>
-                <bpel:to variable="aVendedorRequest" part="payload"></bpel:to>
-            </bpel:copy>
-            
-            
-            
-            <bpel:copy>
-                <bpel:from><bpel:literal><tns:VendedorRequest xmlns:tns="http://vendedor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <tns:articulo>tns:articulo</tns:articulo>
-  <tns:precio>tns:precio</tns:precio>
-</tns:VendedorRequest>
-</bpel:literal></bpel:from>
-                <bpel:to variable="aVendedorRequest" part="payload"></bpel:to>
+                <bpel:to variable="sellerRequest" part="payload"></bpel:to>
             </bpel:copy>
             <bpel:copy>
                 <bpel:from part="payload" variable="input">
@@ -97,7 +88,7 @@
                         <![CDATA[tns:articulo]]>
                     </bpel:query>
                 </bpel:from>
-                <bpel:to part="payload" variable="aVendedorRequest">
+                <bpel:to part="payload" variable="sellerRequest">
                     <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                         <![CDATA[ns1:articulo]]>
                     </bpel:query>
@@ -107,42 +98,34 @@
                 <bpel:from part="payload" variable="input">
                     <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:precio]]></bpel:query>
                 </bpel:from>
-                <bpel:to part="payload" variable="aVendedorRequest">
+                <bpel:to part="payload" variable="sellerRequest">
                     <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns1:precio]]></bpel:query>
                 </bpel:to>
             </bpel:copy>
         </bpel:assign>
-        
-        
-        
-        
         <bpel:while name="While">
-            <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[number($aVendedorReply.payload/tns:result)>=10]]></bpel:condition>
+            <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[number($sellerResponse.payload/tns:result)>=10]]></bpel:condition>
             <bpel:sequence>
-                <bpel:invoke name="InvokeVendedor" partnerLink="seller" operation="process" portType="ns1:Vendedor" inputVariable="aVendedorRequest" outputVariable="aVendedorReply"></bpel:invoke>
+                <bpel:invoke name="InvokeVendedor" partnerLink="seller" operation="process" portType="ns1:Vendedor" inputVariable="sellerRequest" outputVariable="sellerResponse"></bpel:invoke>
                 <bpel:assign validate="no" name="AssignReply">
-                    <bpel:copy>
-                        <bpel:from><bpel:literal><tns:VendedorResponse xmlns:tns="http://vendedor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <tns:result>tns:result</tns:result>
-</tns:VendedorResponse>
-</bpel:literal></bpel:from>
-                        <bpel:to variable="aVendedorReply" part="payload"></bpel:to>
-                    </bpel:copy>
+                    
+                    
+                    
+                    
+                    
                     <bpel:copy>
                         <bpel:from><bpel:literal><tns:CompradorResponse xmlns:tns="http://comprador" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <tns:result>tns:result</tns:result>
 </tns:CompradorResponse>
 </bpel:literal></bpel:from>
-                        <bpel:to variable="aVendedorReply" part="payload"></bpel:to>
+                        <bpel:to variable="output" part="payload"></bpel:to>
                     </bpel:copy>
                     <bpel:copy>
                         <bpel:from part="payload" variable="sellerResponse">
                             <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns1:result]]></bpel:query>
                         </bpel:from>
-                        <bpel:to part="payload" variable="aVendedorReply">
-                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
-                                <![CDATA[ns1:result]]>
-                            </bpel:query>
+                        <bpel:to part="payload" variable="output">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:result]]></bpel:query>
                         </bpel:to>
                     </bpel:copy>
                 </bpel:assign>

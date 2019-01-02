@@ -7,7 +7,7 @@
     <provide partnerLink="client">
       <service name="comprador:CompradorService" port="CompradorPort"/>
     </provide>
-    <invoke partnerLink="pnlkVendedor">
+    <invoke partnerLink="seller">
       <service name="vendedor:VendedorService" port="VendedorPort"/>
     </invoke>
   </process>

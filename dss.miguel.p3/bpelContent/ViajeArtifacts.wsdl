@@ -22,8 +22,8 @@
                 <complexType>
                     <sequence>
                     	<element name="nombre" type="string"></element>
-                    	<element name="destino" type="string"></element>
-                    	<element name="fechaSalida" type="date"></element>
+                        <element name="destino" type="string"></element>
+                    	<element name="fechaPartida" type="date"></element>
                     	<element name="fechaLlegada" type="date"></element>
                     </sequence>
                 </complexType>
@@ -32,7 +32,9 @@
             <element name="ViajeResponse">
                 <complexType>
                     <sequence>
-                        <element name="result" type="string"/>
+                    	<element name="mejorOferta" type="string" />
+                    	<element name="precioIberia" type="float"></element>
+                    	<element name="precioVueling" type="float"></element>
                     </sequence>
                 </complexType>
             </element>

@@ -21,7 +21,10 @@
             <element name="AerolineaIberiaRequest">
                 <complexType>
                     <sequence>
-                        <element name="input" type="string"/>
+                    	<element name="clase" type="string" />
+                    	<element name="destino" type="string"></element>
+                    	<element name="fechaPartida" type="date"></element>
+                    	<element name="fechaLlegada" type="date"></element>
                     </sequence>
                 </complexType>
             </element>
@@ -29,7 +32,7 @@
             <element name="AerolineaIberiaResponse">
                 <complexType>
                     <sequence>
-                        <element name="result" type="string"/>
+                        <element name="precio" type="float"/>
                     </sequence>
                 </complexType>
             </element>
