@@ -1,3 +1,3 @@
 eclipse.preferences.version=1
 module-start-timeout=300000
-runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<runtimes>\r\n  <runtime id\="Apache Ode 1.x Runtime" location\="F\:/apache/tomcat-8.5" name\="Apache Ode 1.x Runtime" runtime-type-id\="org.eclipse.jst.server.generic.runtime.apache.ode.1x" server_definition_id\="org.eclipse.jst.server.generic.runtime.apache.ode.1x" timestamp\="0">\r\n    <map key\="generic_server_instance_properties" ode.home\="F\:/apache/tomcat-8.5/webapps/ode" port\="9090" serverAddress\="localhost" tomcat.home\="F\:/apache/tomcat-8.5" vmArguments\="-Xms128m -Xmx512m -XX\:MaxPermSize\=256m"/>\r\n  </runtime>\r\n</runtimes>\r\n
+runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<runtimes/>\r\n
